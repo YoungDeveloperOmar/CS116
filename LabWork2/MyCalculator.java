@@ -15,10 +15,16 @@ public class MyCalculator {
         System.out.println("Allowed operators: + - * / ^");
         String choice = in.nextLine().replaceAll(" ", ""); // .replaceAll will delete all spaces given
         if (choice.length() == 3){ // as we were given , format would not exceed 3 numbers . For example 1 + 4, 4 * 4. So we know that we have only 3 characters in our expression
-            System.out.print("Evaluated expression : " + evaluateExpression(choice));
+            if ( !Double.isNaN( evaluateExpression(choice))){ // Check if the result is a number. Of not return error message
+                System.out.print("Evaluated expression : " + evaluateExpression(choice));
+            }
+            else{
+                System.out.println("ERROR: Impossible to evaluate this expression.");
+            }
+
         }
         else{
-            System.out.print("ERROR: Impossible to evaluate this expression.");
+            System.out.print("ERROR: This expression is either too long or too short.");
         }
 
 
@@ -59,14 +65,14 @@ public class MyCalculator {
                         return Double.NaN;
                     }
                 case '^':
-                    if ( !Double.isNaN(Math.pow((int)A , (int)B))){
-                        return (int) Math.pow(A , B);
+                    if ( !Double.isNaN(Math.pow(A , B))){
+                        return Math.pow(A , B);
                     }
                     else{
                         return Double.NaN;
                     }
                 default: // default output in case if something goes wrong. We don't really need it in this code.
-                    System.out.print("ERROR: Impossible to evaluate this expression.");
+                    System.out.println("ERROR: Unknown operator.");
             }
             // if non of the cases works it will return not a number
         return Double.NaN;
